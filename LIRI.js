@@ -99,14 +99,32 @@ switch (userArg1) {
                     console.log(`Error: ${error}`);
                 } else {
                     body = JSON.parse(body);
-                    console.log(`Title: ${body.Title}`);
-                    console.log(`Release Year: ${body.Year}`);
-                    console.log(`IMDB Rating: `);
-                    console.log(`Rotten Tomatoes Rating: `);
-                    console.log(`Countries Produced In: ${body.Country}`);
-                    console.log(`Language: ${body.Language}`);
-                    console.log(`Plot: ${body.Plot}`);
-                    console.log(`Actors: ${body.Actors}`);
+                    if (body.Error === 'Movie not found!') {
+                        console.log('Sorry! It looks like IMDB did not return any search results for that movie. :(');
+                    } else {
+                        let imdbRating;
+                        let rtRating;
+                        body.Ratings.forEach(function(elem){
+                            if (elem.Source === 'Internet Movie Database') {
+                                imdbRating = elem.Value;
+                            } else if (elem.Source === 'Rotten Tomatoes') {
+                                rtRating = elem.Value;
+                            }
+                        });
+                        console.log('Here is the search result for your movie from IMDB:');
+                        console.log(` Title: ${body.Title}`);
+                        console.log(` Release Year: ${body.Year}`);
+                        if (imdbRating) {
+                            console.log(` IMDB Rating: ${imdbRating}`);
+                        }
+                        if (rtRating) {
+                            console.log(` Rotten Tomatoes Rating: ${rtRating}`);
+                        }
+                        console.log(` Countries Produced In: ${body.Country}`);
+                        console.log(` Language: ${body.Language}`);
+                        console.log(` Plot: ${body.Plot}`);
+                        console.log(` Actors: ${body.Actors}`);
+                    }
                 }
             });
         }

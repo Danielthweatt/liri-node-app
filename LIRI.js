@@ -19,7 +19,7 @@ const userArg1 = process.argv[2];
 // Function Declarations
 
 const getMyTweets = function(){
-    client.get('statuses/home_timeline', function(error, tweets, response){
+    client.get('statuses/home_timeline', function(error, tweets){
         if (error) {
             console.log(`Error: ${error}`);
         } else {
@@ -27,6 +27,9 @@ const getMyTweets = function(){
             tweets.forEach(function(tweet){
                 console.log(`Created on ${tweet.created_at}: ${tweet.text}`);
             });
+        }
+        if (userArg1 !== 'do-what-it-says') {
+            logSearch('my-tweets');
         }
     });
 };
@@ -38,6 +41,9 @@ const spotifyThisSong = function(queryString){
         console.log('  Album: The Sign (US Album) [Remastered]');
         console.log('   Artist: Ace of Base');
         console.log('   Preview: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=b6e68f2cb049416ab7b0e04c7f5eed53');
+        if (userArg1 !== 'do-what-it-says') {
+            logSearch('spotify-this-song');
+        }
     } else {
         spotify.search({
             type: 'track', 
@@ -62,6 +68,9 @@ const spotifyThisSong = function(queryString){
                     console.log('Sorry! It looks like Spotify did not return any search results for that song. :(');
                 }
             }
+            if (userArg1 !== 'do-what-it-says') {
+                logSearch('spotify-this-song', queryString);
+            }
         });
     }
 };
@@ -77,6 +86,9 @@ const movieThis = function(queryString){
         console.log(' Language: English, Mohawk');
         console.log(` Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.`);
         console.log(' Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');
+        if (userArg1 !== 'do-what-it-says') {
+            logSearch('movie-this');
+        }
     } else {
         request(`https://www.omdbapi.com/?t=${queryString}&y=&plot=short&apikey=trilogy`, function(error, response, body){
             if (error) {
@@ -110,6 +122,9 @@ const movieThis = function(queryString){
                     console.log(` Actors: ${body.Actors}`);
                 }
             }
+            if (userArg1 !== 'do-what-it-says') {
+                logSearch('movie-this', queryString);
+            }
         });
     }
 };
@@ -128,6 +143,7 @@ const doWhatItSays = function(){
                 movieThis(whatItSays[1]);
             }
         }
+        logSearch('do-what-it-says');
     });
 };
 
@@ -139,6 +155,22 @@ const setQueryStringToUserArguments = function(){
         }
     }
     return queryString;
+};
+
+const logSearch = function(command, queryString){
+    if (queryString) {
+        fs.appendFile('log.txt', `${command} - ${queryString}, `, function(error) {
+            if (error) {
+                console.log(`Error: ${error}`);
+            }  
+        });
+    } else {
+        fs.appendFile('log.txt', `${command}, `, function(error) {
+            if (error) {
+                console.log(`Error: ${error}`);
+            }
+        });
+    }
 };
 
 // Response to User Command

@@ -20,4 +20,5 @@ commands in the log.txt file.
 node liri.js movie-this Godzilla  
 ##Notes
 Make sure to save your Twitter and Spotify API information 
-that keys.js needs as variables in the environment. 
+that keys.js needs as variables in the environment using 
+dotenv. 

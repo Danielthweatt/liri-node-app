@@ -19,13 +19,13 @@ const userArg1 = process.argv[2];
 // Function Declarations
 
 const getMyTweets = function(){
-    client.get('statuses/home_timeline', function(error, tweets){
+    client.get('statuses/user_timeline', {screen_name: 'd1n192', count: 20}, function(error, tweets){
         if (error) {
             console.log(`Error: ${error}`);
         } else {
             console.log("Here are your 20 most recent tweets:");
             tweets.forEach(function(tweet){
-                console.log(`Created on ${tweet.created_at}: ${tweet.text}`);
+                console.log(` Created on ${tweet.created_at}: ${tweet.text}`);
             });
         }
         if (userArg1 !== 'do-what-it-says') {

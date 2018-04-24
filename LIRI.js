@@ -5,6 +5,7 @@ const keys = require('./keys.js');
 const Spotify = require('node-spotify-api');
 const Twitter = require('twitter');
 const request = require('request');
+const fs = require('fs');
 
 // Key Information Retrieval
 
@@ -76,7 +77,7 @@ switch (userArg1) {
     case 'movie-this':
         let omdbQueryString;
         if (process.argv.length === 3) {
-            console.log('Because you did not enter a song to search Spotify for, here is the info for "Mr. Nobody":');
+            console.log('Because you did not enter a movie to search OMDB for, here is the info for "Mr. Nobody":');
             console.log('Title: Mr. Nobody');
             console.log('Release Year: 2009');
             console.log('IMDB Rating: 7.9/10');
@@ -100,7 +101,7 @@ switch (userArg1) {
                 } else {
                     body = JSON.parse(body);
                     if (body.Error === 'Movie not found!') {
-                        console.log('Sorry! It looks like IMDB did not return any search results for that movie. :(');
+                        console.log('Sorry! It looks like OMDB did not return any search results for that movie. :(');
                     } else {
                         let imdbRating;
                         let rtRating;
@@ -111,7 +112,7 @@ switch (userArg1) {
                                 rtRating = elem.Value;
                             }
                         });
-                        console.log('Here is the search result for your movie from IMDB:');
+                        console.log('Here is the search result for your movie from OMDB:');
                         console.log(` Title: ${body.Title}`);
                         console.log(` Release Year: ${body.Year}`);
                         if (imdbRating) {
@@ -130,5 +131,13 @@ switch (userArg1) {
         }
         break;
     case 'do-what-it-says':
+        fs.readFile('random.txt', 'utf8', function(error, data){
+            if (error) {
+                console.log(`Error: ${error}`);
+            } else {
+                const whatItSays = data.split(',');
+                console.log(whatItSays);
+            }
+        });
         break;
 }

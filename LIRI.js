@@ -31,16 +31,6 @@ const getMyTweets = function(){
     });
 };
 
-const setQueryStringToUserArguments = function(){
-    let queryString = process.argv[3];
-    if (process.argv.length > 4) {
-        for (let i = 4; i < process.argv.length; i++) {
-            queryString += ` ${process.argv[i]}`;
-        }
-    }
-    return queryString;
-};
-
 const spotifyThisSong = function(queryString){
     if (!queryString) {
         console.log('Because you did not enter a song to search Spotify for, here is the info for "The Sign":');
@@ -124,18 +114,31 @@ const movieThis = function(queryString){
     }
 };
 
-const readCommandAndQueryStringFromRandomFile = function(){
+const doWhatItSays = function(){
     fs.readFile('random.txt', 'utf8', function(error, data){
         if (error) {
             console.log(`Error: ${error}`);
         } else {
-            return data.split(',');
+            const whatItSays = data.split(',');
+            if (whatItSays[0] === 'my-tweets') {
+                getMyTweets();
+            } else if (whatItSays[0] === 'spotify-this-song') {
+                spotifyThisSong(whatItSays[1]);
+            } else if (whatItSays[0] === 'movie-this') {
+                movieThis(whatItSays[1]);
+            }
         }
     });
 };
 
-const doWhatItSays = function(){
-
+const setQueryStringToUserArguments = function(){
+    let queryString = process.argv[3];
+    if (process.argv.length > 4) {
+        for (let i = 4; i < process.argv.length; i++) {
+            queryString += ` ${process.argv[i]}`;
+        }
+    }
+    return queryString;
 };
 
 // Response to User Command
@@ -151,6 +154,6 @@ switch (userArg1) {
         movieThis(setQueryStringToUserArguments());
         break;
     case 'do-what-it-says':
-        doWhatItSays(readCommandAndQueryStringFromRandomFile());
+        doWhatItSays();
         break;
 }

@@ -23,7 +23,7 @@ switch (userArg1) {
             if (error) {
                 console.log(`Error: ${error}`);
             } else {
-                console.log("Here are my 20 most recent tweets:");
+                console.log("Here are your 20 most recent tweets:");
                 tweets.forEach(function(tweet){
                     console.log(`Created on ${tweet.created_at}: ${tweet.text}`);
                 });
@@ -33,7 +33,7 @@ switch (userArg1) {
     case 'spotify-this-song':
         let spotifyQueryString;
         if (process.argv.length === 3) {
-            console.log('Default (because you did not enter a song to search Spotify for):');
+            console.log('Because you did not enter a song to search Spotify for, here is the info for "The Sign":');
             console.log(' Song Name: The Sign');
             console.log('  Album: The Sign (US Album) [Remastered]');
             console.log('   Artist: Ace of Base');
@@ -76,15 +76,15 @@ switch (userArg1) {
     case 'movie-this':
         let omdbQueryString;
         if (process.argv.length === 3) {
-            console.log('Default (because you did not enter a song to search Spotify for):');
-            console.log(`Title: `);
-            console.log(`Release Year: `);
-            console.log(`IMDB Rating: `);
-            console.log(`Rotten Tomatoes Rating: `);
-            console.log(`Country Produced In: `);
-            console.log(`Language: `);
-            console.log(`Plot: `);
-            console.log(`Actors: `);
+            console.log('Because you did not enter a song to search Spotify for, here is the info for "Mr. Nobody":');
+            console.log('Title: Mr. Nobody');
+            console.log('Release Year: 2009');
+            console.log('IMDB Rating: 7.9/10');
+            console.log('Rotten Tomatoes Rating: 66%');
+            console.log('Countries Produced In: Belgium, Germany, Canada, France, USA, UK');
+            console.log('Language: English, Mohawk');
+            console.log(`Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.`);
+            console.log('Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');
         } else if (process.argv.length === 4) {
             omdbQueryString = process.argv[3];
         } else {
@@ -98,12 +98,12 @@ switch (userArg1) {
                 if (error) {
                     console.log(`Error: ${error}`);
                 } else {
-                    console.log(body);
+                    body = JSON.parse(body);
                     console.log(`Title: ${body.Title}`);
                     console.log(`Release Year: ${body.Year}`);
                     console.log(`IMDB Rating: `);
                     console.log(`Rotten Tomatoes Rating: `);
-                    console.log(`Country Produced In: ${body.Country}`);
+                    console.log(`Countries Produced In: ${body.Country}`);
                     console.log(`Language: ${body.Language}`);
                     console.log(`Plot: ${body.Plot}`);
                     console.log(`Actors: ${body.Actors}`);

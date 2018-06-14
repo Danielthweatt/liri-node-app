@@ -2,7 +2,7 @@
 This is my first node application. 
 ## How to Use
 Enter your command for LIRI as an argument in the command-line 
-right after the command to open liri.js in node. You can enter 
+right after the command to run liri.js in node. You can enter 
 one of the following commands: 'my-tweets', 'spotify-this-song', 
 'movie-this', 'do-what-it-say'. For the middle two commands, 
 you will also have to enter a further argument indicating either 
@@ -20,6 +20,6 @@ commands in the log.txt file.
 node liri.js movie-this Godzilla  
 ## Notes
 In order to use this app you will have to clone the repository 
-and run it in node.js (as described above). Make sure to save 
-your Twitter and Spotify API information that keys.js needs as 
-variables in the environment using dotenv. 
+and run it in node.js using the command-line (as described above). 
+Make sure to save your Twitter and Spotify API information that 
+keys.js needs as variables in the environment using dotenv. 

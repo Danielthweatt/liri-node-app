@@ -1,5 +1,6 @@
 # LIRI
-This is my first node application. 
+This is my first node application. It is a command-line 
+application.
 ## How to Use
 Enter your command for LIRI as an argument in the command-line 
 right after the command to run liri.js in node. You can enter 
